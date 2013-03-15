@@ -15,7 +15,7 @@ namespace :jasmine do
       port = Jasmine::Phantom::Server.start
       script = File.join File.dirname(__FILE__), 'run-jasmine.js'
 
-      pid = Spoon.spawn "phantomjs", script, "http://localhost:#{port}"
+      pid = Spoon.spawnp "phantomjs", script, "http://localhost:#{port}"
       #pid = POSIX::Spawn.spawn("phantomjs", script, "http://localhost:#{port}")
 
       begin
