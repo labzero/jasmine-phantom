@@ -4,7 +4,7 @@ namespace :jasmine do
   namespace :phantom do
     desc "Run jasmine specs using phantomjs and report the results"
     task :ci => "jasmine:require" do
-      require 'posix-spawn'
+      require 'spoon'
       require 'jasmine/version'
 
       if Jasmine::VERSION < "1.3.0"
@@ -15,7 +15,8 @@ namespace :jasmine do
       port = Jasmine::Phantom::Server.start
       script = File.join File.dirname(__FILE__), 'run-jasmine.js'
 
-      pid = POSIX::Spawn.spawn("phantomjs", script, "http://localhost:#{port}")
+      pid = Spoon.spawn "phantomjs", script, "http://localhost:#{port}"
+      #pid = POSIX::Spawn.spawn("phantomjs", script, "http://localhost:#{port}")
 
       begin
         Thread.pass
